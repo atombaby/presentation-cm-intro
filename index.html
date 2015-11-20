@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+		<title>Configuration Management</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="Information and insights into configuration management for Hutch IT professionals">
+		<meta name="author" content="Michael Gutteridge">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -54,7 +54,7 @@
                     </ol>
 				</section>
 				<section>
-                    <h2>Obligitory Wikipedia Quote</h2>
+                    <h3>Obligitory Wikipedia Quote</h3>
                     <blockquote cite="https://en.wikipedia.org/wiki/Configuration_management">
                         Configuration management (CM) is a systems
                         engineering process for establishing and
@@ -64,33 +64,81 @@
                         information throughout its life.
                     </blockquote>
 				</section>
-				<section>
-                    <h2>What does that mean to me?</h2>
+                <section>
+                    <h3>In practical terms</h3>
                     <p>
-                    A Gartner Group study <small>[citation needed]</small> suggests through 2015 that 80% of downtime is due
-                    to people and process
+                    For us, configuration management takes on the form
+                    of a series of tools and scripts that work together
+                    to configure an operating system to perform its
+                    designated task.
                     </p>
+                    <ul>
+                        <li>kickstart</li>
+                        <li>orchestra</li>
+                        <li>puppet</li>
+                        <li>chef</li>
+                    </ul>
                     <p>
-                        <image src="http://www.reactiongifs.com/r/ihniwid.gif"></image>
+                    Reproducibility is a key component of any CM toolchain
                     </p>
                 </section>
                 <section>
-                    <h3>We are own worst enemy</h3>
+                    <h3>Infrastructure as Fireside Chat</h3>
+                    <p>
+                    <img src="images/minecraft_by_hand.png" alt="http://minecraft.gamepedia.com/Tutorials/Setting_up_a_server">
+                    </p>
+                </section>
+                <section>
+                    <h3>challenges with this approach</h3>
                     <ul>
                         <span class="fragment">
-                            <li>complex interconnected systems</li>
+                            <li>easy to miss a step</li>
                         </span>
                         <span class="fragment">
-                            <li>lack of rigorous and formal tests</li>
+                            <li>lack of tests</li>
                         </span>
                         <span class="fragment">
-                            <li>documentation is always last, if at all</li>
-                        </span>
-                        <span class="fragment">
-                            <li>shooting from the hip</li>
+                            <li>documentation is effort separate from changes</li>
                         </span>
                     </ul>
                 </section>
+                <section>
+                    <h3>Infrastructure as Code</h3>
+                        <pre><code class="ruby">
+case node['minecraft']['init_style']
+when 'runit'
+runit_service 'minecraft' do
+    sv_bin 'sleep 5 && /usr/bin/sv'
+    options({
+      :install_dir => node['minecraft']['install_dir'],
+      :xms         => node['minecraft']['xms'],
+      :xmx         => node['minecraft']['xmx'],
+      :prefer_ipv4 => node['minecraft']['prefer_ipv4'],
+      :user        => node['minecraft']['user'],
+      :group       => node['minecraft']['group'],
+      :java_opts   => node['minecraft']['java-options'],
+      :server_opts => node['minecraft']['server_opts'],
+      :jar_name    => minecraft_file(node['minecraft']['url'])
+    }.merge(params))
+    action [:enable, :start]
+    end
+end
+                        </code></pre>
+                </section>
+				<section>
+                    <h3>Gains?</h3>
+                    <ul>
+                        <span class="fragment">
+                            <li>the change <em>is</em> the documentation</li>
+                        </span>
+                        <span class="fragment">
+                            <li>easier to write tests</li>
+                        </span>
+                        <aside class="notes">same code that makes changes performs tests</aside>
+                    </ul>
+				</section>
+				<section>
+				</section>
 				<section>
 				</section>
 			</div>
