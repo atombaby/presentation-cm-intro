@@ -4,6 +4,8 @@ class: center, middle
 
 ---
 
+> Let's build a cookbook to configure Splunk forwarding!
+
 # Design
 
  - does a cookbook already exist?  Laziness > Hubris
@@ -22,7 +24,9 @@ interaction with the base roles already in common use
 
 # Selecting a Community Cookbook
 
-Lots of... not... good... cookbooks available.  How do we choose?
+ - search 'https://supermarket.chef.io'
+
+ if you find one or more, look at these things to judge a cookbook's utility:
 
  - community behind cookbook- number of contributors and followers
  - documentation
@@ -34,13 +38,15 @@ Lots of... not... good... cookbooks available.  How do we choose?
 
 ---
 
-# Check these out:
+# Splunk has two:
+
+Maintained by Chef
 
 <img src="img/chef-splunk-cookbook.png"/>
 
 ---
 
-# Check these out:
+Maintained by a community member
 
 <img src="img/agent462-splunk-cookbook.png"/>
 
